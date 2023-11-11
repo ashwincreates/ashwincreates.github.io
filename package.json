@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/three": "^0.158.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.13",
@@ -36,6 +37,7 @@
 		"octokit": "^2.0.14",
 		"pixelarticons": "^1.7.0",
 		"svelte-feather-icons": "^4.0.0",
-		"three": "^0.149.0"
+		"three": "^0.149.0",
+		"yup": "^1.0.0"
 	}
 }

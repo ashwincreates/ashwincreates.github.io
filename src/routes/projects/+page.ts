@@ -5,14 +5,13 @@ interface Repo {
 }
 
 const headers = {
-    headers: {
-        "Authorization": "Bearer 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"
-    }
 }
 
 export const load = (async ({ fetch }) => {
     const res: Response = await fetch('https://api.github.com/users/ashwincreates/repos', headers)
     let repos: Repo[] = res.status == 200 ? await res.json() : [];
+
+    console.log(res)
 
     const repoPromises: { repo: Repo, isPortfolio: boolean }[] = await Promise.all(repos.map(async repo => {
         const res = await fetch(repo.contents_url.replace('{+path}', 'portfolio.json'), headers)

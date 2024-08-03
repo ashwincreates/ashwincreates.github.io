@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ThemeRegistry from "./ThemeRegistry";
 import NavBar from "@/components/NavBar";
 import "./index.css";
-import { Container, getInitColorSchemeScript } from "@mui/joy";
+import { Container } from "@mui/joy";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <ThemeRegistry options={{ key: "joy" }}>
           <NavBar />
-          <Container sx={{ marginLeft: "64px", width: 'unset' }}>{children}</Container>
+          <Container sx={{ marginLeft: { sm: "64px", md: undefined}, width: 'calc(100% - 64px)', margin: { lg: 'auto' } }}>{children}</Container>
         </ThemeRegistry>
       </body>
     </html>

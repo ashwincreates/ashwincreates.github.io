@@ -1,5 +1,6 @@
 "use client";
 import {
+  Link,
   List,
   ListItem,
   ListItemButton,
@@ -9,10 +10,13 @@ import {
 } from "@mui/joy";
 import { usePathname, useRouter } from "next/navigation";
 import Logo from "./Logo";
+import NavLink from "next/link";
 
 const routes = [
-  { title: "Projects", route: "projects" },
-  { title: "About", route: "about" },
+  { title: "Projects", route: "projects", type: 'route' },
+  { title: "Github", route: "https://www.github.com/ashwincreates", type: 'link' },
+  { title: "Garden", route: "https://gumgum-garden.vercel.app", type: 'link' },
+  { title: "Resume", route: "resume", type: 'link' },
 ];
 
 function NavBar() {
@@ -22,12 +26,12 @@ function NavBar() {
     <Sheet
       variant="outlined"
       sx={{
+        display: { xs: 'none', sm: 'block' },
         position: "fixed",
-        top: 0,
-        bottom: 0,
-        borderTop: 0,
-        borderLeft: 0,
-        borderBottom: 0,
+        top: 8,
+        bottom: 8,
+        left: 8,
+        borderRadius: 'sm',
         width: "64px",
       }}
     >
@@ -47,24 +51,27 @@ function NavBar() {
           </ListItemButton>
         </ListItem>
         {routes.map((item) => {
+          const NavItemLink = item.type === 'route' ? NavLink : Link;
           return (
-            <ListItem sx={{ "--ListItem-paddingY": "1rem" }}>
+            <ListItem sx={{ "--ListItem-paddingY": "1rem" }} key={item.title}>
               <ListItemButton
-                onClick={() => navigate.push(item.route)}
                 selected={pathname.includes(item.route)}
               >
-                <ListItemContent
-                  sx={(theme) => ({
-                    writingMode: "vertical-lr",
-                    textOrientation: "mixed",
-                    transform: "rotate(180deg)",
-                    ...theme.typography["body-xs"],
-                    fontFamily: (theme) => theme.fontFamily.display,
-                    lineHeight: 3,
-                  })}
-                >
-                  {item.title}
-                </ListItemContent>
+                <NavItemLink style={{ textDecoration: 'none' }} target={item.type === 'link' ? '_blank' : undefined} href={item.route}>
+                  <ListItemContent
+                    sx={(theme) => ({
+                      writingMode: "vertical-lr",
+                      textOrientation: "mixed",
+                      textDecoration: 'none',
+                      transform: "rotate(180deg)",
+                      ...theme.typography["body-xs"],
+                      fontFamily: (theme) => theme.fontFamily.display,
+                      lineHeight: 3,
+                    })}
+                  >
+                    {item.title}
+                  </ListItemContent>
+                </NavItemLink>
               </ListItemButton>
             </ListItem>
           );

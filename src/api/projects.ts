@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client"
-import { Project } from "../types/Projects"
 import { getGraphQL } from "./graphql"
+import { Project } from "@/types/Projects"
 
 export async function getProjects() {
   const GET_PROJECTS = gql`

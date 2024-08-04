@@ -1,14 +1,13 @@
-import { Container, Stack, Typography } from "@mui/joy";
+import { Card, Container, Stack, Typography } from "@mui/joy";
 
 export default function Home() {
   return (
     <>
-      <Container component='section' sx={{ height: '100vh' }}>
+      <Container component='section' sx={{paddingTop: 22, paddingBottom: 36}}>
         <Stack position="relative">
           <Typography
             display={'inline'}
             fontSize={{ xs: 36, sm: 52, md: 64 }}
-            marginTop={22}
             fontFamily="Unbounded"
           >
             Hi, I am Ashwin
@@ -18,8 +17,7 @@ export default function Home() {
           </Typography>
         </Stack>
       </Container>
-      <Container component='section' sx={{ height: '100vh' }}>
-        Skills
+      <Container component='section'>
       </Container>
     </>
   );

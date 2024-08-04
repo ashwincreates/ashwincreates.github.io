@@ -11,13 +11,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import Logo from "./Logo";
 import NavLink from "next/link";
-
-const routes = [
-  { title: "Projects", route: "projects", type: 'route' },
-  { title: "Github", route: "https://www.github.com/ashwincreates", type: 'link' },
-  { title: "Garden", route: "https://gumgum-garden.vercel.app", type: 'link' },
-  { title: "Resume", route: "resume", type: 'link' },
-];
+import { routes } from "../routes";
 
 function NavBar() {
   const navigate = useRouter();
@@ -40,8 +34,6 @@ function NavBar() {
           sx={{
             "--ListItem-paddingY": "0.8rem",
             marginBottom: 2,
-            [`& .${listItemButtonClasses.root}.${listItemButtonClasses.selected} `]:
-              { backgroundColor: "red" },
           }}
         >
           <ListItemButton onClick={() => navigate.push("/")}>

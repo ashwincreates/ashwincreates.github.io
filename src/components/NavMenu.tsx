@@ -1,6 +1,6 @@
 "use client"
 import { routes } from "@/routes";
-import { Button, Drawer, IconButton, Link, List, ListItem, ListItemButton, ListItemContent, Modal, ModalClose, Sheet, Stack, useTheme } from "@mui/joy";
+import { Button, Container, Drawer, IconButton, Link, List, ListItem, ListItemButton, ListItemContent, Modal, ModalClose, Sheet, Stack, useTheme } from "@mui/joy";
 import NavLink from "next/link";
 import Logo from "./Logo";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,17 +13,22 @@ function NavMenu() {
     const [open, setOpen] = useState(false)
     return (
         <>
-            <IconButton
-                sx={{ position: 'fixed', top: '1rem', left: '1rem', zIndex: theme.zIndex.modal - 1, display: { sm: 'none' } }}
-                onClick={() => setOpen(o => !o)}
-                color='neutral'
+            <Container
+                sx={{backdropFilter: 'blur(4px)', position: 'fixed', zIndex: theme.zIndex.modal - 1, display: { sm: 'none' } }}
             >
-                <Bars2Icon height={18} />
-            </IconButton>
+                <Stack height={64} direction='row' alignItems='center' >
+                    <IconButton
+                        onClick={() => setOpen(o => !o)}
+                        color='neutral'
+                    >
+                        <Bars2Icon height={18} />
+                    </IconButton>
+                </Stack>
+            </Container>
             <Drawer slotProps={{ content: { sx: { bgcolor: 'transparent', boxShadow: 'none', p: 1 } } }} open={open} anchor='top' onClose={() => setOpen(o => !o)}>
                 <Sheet sx={{ border: 1, borderRadius: 'sm', borderColor: theme.palette.divider, boxShadow: theme.shadow['sm'] }}>
                     <List>
-                        <ListItem sx={{ marginBottom: 2}}>
+                        <ListItem sx={{ marginBottom: 2 }}>
                             <ListItemContent sx={{ justifyContent: 'space-between', alignItems: 'center', display: "flex" }}>
                                 <Stack>
                                     <NavLink href={'/'} onClick={() => setOpen(o => !o)}>

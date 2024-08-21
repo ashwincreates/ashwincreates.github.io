@@ -1,8 +1,13 @@
 "use client"
 import { Container, Stack, Typography } from "@mui/joy";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 function Intro() {
-  return <Container component='section' sx={{ paddingY: 22 }} >
+  const ref = useRef(null!)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
+  return <Container ref={ref} style={{ opacity: opacity }} component={motion.section} sx={{ paddingY: 22 }} >
     <Stack position="relative">
       <Typography
         display={'inline'}

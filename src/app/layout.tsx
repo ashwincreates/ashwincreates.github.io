@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import NavBar from "@/components/NavBar";
 import "./index.css";
-import NavMenu from "@/components/NavMenu";
-import { CopyrightIcon } from "lucide-react";
 import Footer from "@/components/Footer";
 import Frost from "@/components/Frost";
 

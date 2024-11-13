@@ -1,75 +1,108 @@
 "use client";
-import {
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemContent,
-  Sheet,
-  listItemButtonClasses,
-} from "@mui/joy";
 import { usePathname, useRouter } from "next/navigation";
 import Logo from "./Logo";
 import NavLink from "next/link";
 import { routes } from "../routes";
+import { cn } from "@/lib/utils";
+import { MenuIcon } from "lucide-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "./ui/sheet";
+import { useMotionValueEvent, useScroll } from "framer-motion";
+import { useState } from "react";
 
 function NavBar() {
-  const navigate = useRouter();
   const pathname = usePathname();
+  const [isTop, setIsTop] = useState(true)
+  const scroll = useScroll()
+
+  useMotionValueEvent(scroll.scrollYProgress, 'change', (prev) => {
+    setIsTop(prev > 0 ? false: true)
+  })
+
   return (
-    <Sheet
-      variant="outlined"
-      sx={{
-        display: { xs: 'none', sm: 'block' },
-        position: "fixed",
-        top: 8,
-        bottom: 8,
-        left: 8,
-        borderRadius: 'sm',
-        width: "64px",
-      }}
-    >
-      <List>
-        <ListItem
-          sx={{
-            "--ListItem-paddingY": "0.8rem",
-            marginBottom: 2,
-          }}
-        >
-          <ListItemButton onClick={() => navigate.push("/")}>
-            <ListItemContent sx={{ justifyContent: "center", display: "flex" }}>
-              <Logo />
-            </ListItemContent>
-          </ListItemButton>
-        </ListItem>
+    <nav className={cn("bg-none md:bg-stone-900/60 fixed top-4 right-4 md:bottom-4 left-4 rounded-md  md:w-[64px] z-10 overflow-hidden", !isTop && "bg-stone-900/60")}>
+      <ul className={cn("px-3 py-2 md:p-2 justify-between md:justify-start flex md:flex-col gap-6 items-center", !isTop && "backdrop-blur-md")}>
+        <li className="mb-2 mt-1 md:my-2">
+          <a href="/">
+            <Logo />
+          </a>
+        </li>
         {routes.map((item) => {
-          const NavItemLink = item.type === 'route' ? NavLink : Link;
           return (
-            <ListItem sx={{ "--ListItem-paddingY": "1rem" }} key={item.title}>
-              <ListItemButton
-                selected={pathname.includes(item.route)}
+            <NavLink
+              className="hidden md:block"
+              style={{ textDecoration: "none" }}
+              target={item.type === "link" ? "_blank" : undefined}
+              href={item.route}
+            >
+              <h4
+                className={cn(
+                  "text-stone-400 hover:text-stone-50 font-display text-xs",
+                  pathname.includes(item.route) ? "text-stone-50" : ""
+                )}
+                style={{
+                  writingMode: "vertical-lr",
+                  textOrientation: "mixed",
+                  transform: "rotate(180deg)",
+                  lineHeight: 0,
+                }}
               >
-                <NavItemLink style={{ textDecoration: 'none' }} target={item.type === 'link' ? '_blank' : undefined} href={item.route}>
-                  <ListItemContent
-                    sx={(theme) => ({
-                      writingMode: "vertical-lr",
-                      textOrientation: "mixed",
-                      textDecoration: 'none',
-                      transform: "rotate(180deg)",
-                      ...theme.typography["body-xs"],
-                      fontFamily: (theme) => theme.fontFamily.display,
-                      lineHeight: 3,
-                    })}
-                  >
-                    {item.title}
-                  </ListItemContent>
-                </NavItemLink>
-              </ListItemButton>
-            </ListItem>
+                {item.title}
+              </h4>
+            </NavLink>
           );
         })}
-      </List>
-    </Sheet>
+        <Sheet>
+          <SheetTrigger className="md:hidden text-stone-300">
+            <MenuIcon />
+          </SheetTrigger>
+          <SheetContent
+            side="top"
+            className="border-stone-700 flex flex-col gap-4"
+          >
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  href={'/'}
+                >
+                  <SheetClose>
+                    <h4
+                      className={cn(
+                        "text-stone-400 hover:text-stone-50 font-display text-lg",
+                        pathname == '/' ? "text-stone-50" : ""
+                      )}
+                    >
+                      Home
+                    </h4>
+                  </SheetClose>
+                </NavLink>
+            {routes.map((item) => {
+              return (
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  target={item.type === "link" ? "_blank" : undefined}
+                  href={item.route}
+                >
+                  <SheetClose>
+                    <h4
+                      className={cn(
+                        "text-stone-400 hover:text-stone-50 font-display text-lg",
+                        pathname.includes(item.route) ? "text-stone-50" : ""
+                      )}
+                    >
+                      {item.title}
+                    </h4>
+                  </SheetClose>
+                </NavLink>
+              );
+            })}
+          </SheetContent>
+        </Sheet>
+      </ul>
+    </nav>
   );
 }
 

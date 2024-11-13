@@ -1,22 +1,33 @@
-"use client"
-import { Container, Stepper, Step, StepIndicator, Typography, Stack } from "@mui/joy";
+const experience = [
+  {
+    title: "Intern",
+    company: "Enquero",
+    subtitle: "Mar 2024 - June 2024",
+    description: ["did XYZ", "blablabla"],
+  },
+  {
+    title: "SDE",
+    company: "Genpact",
+    subtitle: "July 2024 - present",
+    description: ["did XYZ", "blablabla"],
+  },
+];
 
 function Experience() {
-    return <Container component='section' sx={{ paddingBottom: 22 }} >
-        <Stack alignItems={'center'} gap={12}>
-            <Typography level='title-md' color='neutral'>My Journey so far</Typography>
-            <Stepper sx={{width: '100%'}}>
-                <Step indicator={<StepIndicator />} orientation='vertical'>
-                    Internship at Enquero
-                    <Typography level='body-xs'>Mar 2023 - July 2023</Typography>
-                </Step>
-                <Step indicator={<StepIndicator />} orientation='vertical'>
-                    SDE Enquero
-                    <Typography level='body-xs'>July 2023 - present</Typography>
-                </Step>
-            </Stepper>
-        </Stack>
-    </Container>;
+  return (
+    <section className="min-h-[500px] px-6 md:px-24 space-y-20">
+      <h3 className="text-stone-300 font-display text-xl">Experience</h3>
+      <ul className="text-stone-300 space-y-12 md:space-y-0 space-x-12 md:flex">
+        {experience.map((exp) => (
+          <li className="pl-8 relative after:absolute after:h-2 after:w-2 after:left-2 after:top-2  after:bg-stone-500 after:rotate-45">
+            <h4 className="font-display text-lg">{exp.company}</h4>
+            <span className="text-xs text-stone-400">{exp.subtitle}</span>
+            <h5 className="text-md text-stone-300">{exp.title}</h5>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 export default Experience;

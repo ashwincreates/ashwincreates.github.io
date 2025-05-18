@@ -1,9 +1,9 @@
 import { Project } from "@/types/Projects";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { Link2 } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
@@ -32,7 +32,7 @@ function ProjectCard(props: ProjectCardProps) {
           </div>
           <Link target="_blank" href={project.url} className="justify-self-end">
             <Button variant='outline' size='icon'>
-              <ArrowTopRightOnSquareIcon height={18} />
+              <Link2 height={18} />
             </Button>
           </Link>
         </div>

@@ -16,18 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className="bg-stone-950"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, #27272a 1px, transparent 0)",
-          backgroundSize: "40px 40px",
-        }}
-      >
-        <NavBar/>
-        <Frost/>
+      <body>
+        <Frost />
+        <NavBar />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

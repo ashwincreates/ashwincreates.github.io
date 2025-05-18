@@ -8,6 +8,7 @@ import { MenuIcon } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
 
 function NavBar() {
   const pathname = usePathname();
@@ -21,27 +22,27 @@ function NavBar() {
   return (
     <nav
       className={cn(
-        "bg-none md:bg-stone-900/60 fixed top-4 right-4 md:bottom-4 left-4 rounded-md  md:w-[64px] z-10 overflow-hidden",
+        "bg-none md:bg-stone-900/60 fixed top-4 right-4 md:bottom-4 left-4 rounded-md  md:w-[64px] z-10 overflow-hidden md:backdrop-blur-sm ",
         !isTop && "bg-stone-900/60"
       )}
     >
       <ul
         className={cn(
           "px-3 py-2 md:p-2 justify-between md:justify-start flex md:flex-col gap-6 items-center",
-          !isTop && "backdrop-blur-sm"
         )}
       >
         <li className="mb-2 mt-1 md:my-2">
-          <a href="/">
+          <Link href="/">
             <Logo />
-          </a>
+          </Link>
         </li>
         {routes.map((item) => {
           return (
             <NavLink
+              key={item.title}
               className="hidden md:block"
               style={{ textDecoration: "none" }}
-              target={item.type === "link" ? "_blank" : undefined}
+              target={item.type === "link" ? (item.route.startsWith("http") ? "_blank" : undefined) : undefined}
               href={item.route}
             >
               <h4

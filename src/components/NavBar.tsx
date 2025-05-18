@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import NavLink from "next/link";
 import { routes } from "../routes";

@@ -39,13 +39,14 @@ export async function getProjects() {
 
   const nodes = await getGraphQL().query({ query: GET_PROJECTS })
 
-  const projects: Project[] = nodes.data.user.repositories.edges.map(({node}: any) => ({
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const projects: Project[] = nodes.data.user.repositories.edges.map(({ node }: any) => ({
     name: node.name,
     description: node.description,
     url: node.url,
     homepage: node.homepageUrl,
     imageUrl: node.openGraphImageUrl,
-    languages: node.languages.edges.map(({node}: any) => node.name),
+    languages: node.languages.edges.map(({ node }: any) => node.name),
     topics: node.repositoryTopics.edges.map(({ node }: any) => node.topic.name)
   }))
 

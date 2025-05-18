@@ -4,7 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import vertexShader from "@/shaders/vertex.glsl";
 import fragmentShader from "@/shaders/fragment.glsl";
 import { useRef } from "react";
-import { Color, Mesh, Vector3 } from "three";
+import { Color, Mesh, ShaderMaterial } from "three";
 
 function Frost() {
   return (
@@ -24,7 +24,7 @@ const Effect = () => {
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
-      meshRef.current.material.uniforms.time.value = clock.getElapsedTime();
+      (meshRef.current.material as ShaderMaterial).uniforms.time.value = clock.getElapsedTime();
     }
   });
 

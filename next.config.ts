@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /\.glsl/,
-      type: 'asset/source',
+      use: ['raw-loader']
     });
     return config;
   },

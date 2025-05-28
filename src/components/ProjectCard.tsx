@@ -23,11 +23,11 @@ function ProjectCard(props: ProjectCardProps) {
         </h3>
         <p className="text-sm text-stone-500">{project.description}</p>
         <div className="flex justify-between gap-4 self-stretch mt-4">
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {project.topics
               .filter((t) => t !== "showcase")
               .map((topic) => (
-                <span key={topic} className="border border-stone-500 text-stone-500 rounded-full px-3 h-[1.8rem] align-middle flex items-center text-xs leading-0">{topic}</span>
+                <div key={topic} className="border w-min-content border-stone-500 text-stone-500 rounded-full px-3 h-[1.8rem] align-middle flex items-center text-xs leading-0">{topic}</div>
               ))}
           </div>
           <Link target="_blank" href={project.url} className="justify-self-end">

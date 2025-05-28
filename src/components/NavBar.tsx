@@ -68,7 +68,7 @@ function NavBar() {
           </SheetTrigger>
           <SheetContent
             side="top"
-            className="border-stone-700 flex flex-col gap-4"
+            className="border-stone-700 flex flex-col gap-4 p-4"
           >
             <NavLink style={{ textDecoration: "none" }} href={"/"}>
               <SheetClose>
@@ -87,7 +87,7 @@ function NavBar() {
                 <NavLink
                   key={item.title}
                   style={{ textDecoration: "none" }}
-                  target={item.type === "link" ? "_blank" : undefined}
+                  target={item.type === "link" ? (item.route.startsWith("http") ? "_blank" : undefined) : undefined}
                   href={item.route}
                 >
                   <SheetClose>

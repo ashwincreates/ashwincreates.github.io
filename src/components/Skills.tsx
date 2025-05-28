@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Skills() {
   return (
-    <section id="skills" className="min-h-[100vh] px-6 md:px-24 space-y-20">
-      <h3 className="text-stone-300 font-display text-4xl py-24">Stuff I work with</h3>
+    <section id="skills" className="relative min-h-[100vh] px-6 md:ml-48 pb-24 md:pr-24 space-y-20">
+      <h3 className="text-stone-300 font-display text-3xl md:text-4xl py-18 md:py-24">Stuff I work with</h3>
       <div className="flex gap-16 flex-wrap">
         {[faReact, faJava, faNodeJs, faJs, faPython, faAngular, faFlutter].map(
           (icon) => (

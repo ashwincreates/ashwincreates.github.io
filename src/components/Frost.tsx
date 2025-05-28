@@ -10,7 +10,6 @@ function Frost() {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0">
       <Canvas>
-        <color attach="background" args={["transparent"]} />
         <ambientLight />
         <Effect />
       </Canvas>

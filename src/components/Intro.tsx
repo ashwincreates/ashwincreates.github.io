@@ -7,9 +7,9 @@ import Link from "next/link";
 
 function Intro() {
   return (
-    <section className="h-[100vh] px-6 md:px-24">
-      <div className="space-y-4 pt-40">
-        <h1 className="text-6xl text-stone-100 font-display">
+    <section className="relative h-[100vh] px-6 md:px-48 md:pr-24">
+      <div className="space-y-4 pt-48">
+        <h1 className="text-4xl md:text-6xl text-stone-100 font-display">
           Hi, I am Ashwin
         </h1>
         <h3 className="text-md font-display text-stone-400">

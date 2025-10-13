@@ -22,16 +22,12 @@ function NavBar() {
   return (
     <nav
       className={cn(
-        "bg-none md:bg-stone-900/60 fixed top-4 right-4 md:bottom-4 left-4 rounded-md  md:w-[64px] z-10 overflow-hidden md:backdrop-blur-sm ",
-        !isTop && "bg-stone-900/60"
+        "bg-none md:bg-stone-900/80 top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
+        !isTop && "bg-stone-900/80",
       )}
     >
-      <ul
-        className={cn(
-          "px-3 py-2 md:p-2 justify-between md:justify-start flex md:flex-col gap-6 items-center",
-        )}
-      >
-        <li className="mb-2 mt-1 md:my-2">
+      <ul className={cn("px-4 py-2 flex gap-6 items-center")}>
+        <li className="size-5">
           <Link href="/">
             <Logo />
           </Link>
@@ -42,18 +38,21 @@ function NavBar() {
               key={item.title}
               className="hidden md:block"
               style={{ textDecoration: "none" }}
-              target={item.type === "link" ? (item.route.startsWith("http") ? "_blank" : undefined) : undefined}
+              target={
+                item.type === "link"
+                  ? item.route.startsWith("http")
+                    ? "_blank"
+                    : undefined
+                  : undefined
+              }
               href={item.route}
             >
               <h4
                 className={cn(
-                  "text-stone-400 hover:text-stone-50 font-display text-xs",
-                  pathname.includes(item.route) ? "text-stone-50" : ""
+                  "text-stone-300 hover:text-stone-50 font-display text-xs",
+                  pathname.includes(item.route) ? "text-stone-50" : "",
                 )}
                 style={{
-                  writingMode: "vertical-lr",
-                  textOrientation: "mixed",
-                  transform: "rotate(180deg)",
                   lineHeight: 0,
                 }}
               >
@@ -75,7 +74,7 @@ function NavBar() {
                 <h4
                   className={cn(
                     "text-stone-400 hover:text-stone-50 font-display text-lg",
-                    pathname == "/" ? "text-stone-50" : ""
+                    pathname == "/" ? "text-stone-50" : "",
                   )}
                 >
                   Home
@@ -87,14 +86,20 @@ function NavBar() {
                 <NavLink
                   key={item.title}
                   style={{ textDecoration: "none" }}
-                  target={item.type === "link" ? (item.route.startsWith("http") ? "_blank" : undefined) : undefined}
+                  target={
+                    item.type === "link"
+                      ? item.route.startsWith("http")
+                        ? "_blank"
+                        : undefined
+                      : undefined
+                  }
                   href={item.route}
                 >
                   <SheetClose>
                     <h4
                       className={cn(
                         "text-stone-400 hover:text-stone-50 font-display text-lg",
-                        pathname.includes(item.route) ? "text-stone-50" : ""
+                        pathname.includes(item.route) ? "text-stone-50" : "",
                       )}
                     >
                       {item.title}

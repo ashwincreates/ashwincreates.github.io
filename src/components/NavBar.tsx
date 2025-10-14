@@ -22,8 +22,8 @@ function NavBar() {
   return (
     <nav
       className={cn(
-        "bg-none md:bg-stone-900/80 top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
-        !isTop && "bg-stone-900/80",
+        "bg-none md:bg-black top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
+        !isTop && "bg-slate-900",
       )}
     >
       <ul className={cn("px-4 py-2 flex gap-6 items-center")}>
@@ -49,8 +49,8 @@ function NavBar() {
             >
               <h4
                 className={cn(
-                  "text-stone-300 hover:text-stone-50 font-display text-xs",
-                  pathname.includes(item.route) ? "text-stone-50" : "",
+                  "text-slate-300 hover:text-slate-50 font-display text-xs",
+                  pathname.includes(item.route) ? "text-slate-50" : "",
                 )}
                 style={{
                   lineHeight: 0,
@@ -62,19 +62,19 @@ function NavBar() {
           );
         })}
         <Sheet>
-          <SheetTrigger className="md:hidden text-stone-300">
+          <SheetTrigger className="md:hidden text-slate-300">
             <MenuIcon />
           </SheetTrigger>
           <SheetContent
             side="top"
-            className="border-stone-700 flex flex-col gap-4 p-4"
+            className="border-slate-700 flex flex-col gap-4 p-4"
           >
             <NavLink style={{ textDecoration: "none" }} href={"/"}>
               <SheetClose>
                 <h4
                   className={cn(
-                    "text-stone-400 hover:text-stone-50 font-display text-lg",
-                    pathname == "/" ? "text-stone-50" : "",
+                    "text-slate-400 hover:text-slate-50 font-display text-lg",
+                    pathname == "/" ? "text-slate-50" : "",
                   )}
                 >
                   Home
@@ -98,8 +98,8 @@ function NavBar() {
                   <SheetClose>
                     <h4
                       className={cn(
-                        "text-stone-400 hover:text-stone-50 font-display text-lg",
-                        pathname.includes(item.route) ? "text-stone-50" : "",
+                        "text-slate-400 hover:text-slate-50 font-display text-lg",
+                        pathname.includes(item.route) ? "text-slate-50" : "",
                       )}
                     >
                       {item.title}

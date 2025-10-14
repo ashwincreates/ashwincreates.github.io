@@ -6,18 +6,11 @@ import fragmentShader from "@/shaders/fragment.glsl";
 import { useRef } from "react";
 import { Color, Mesh, ShaderMaterial } from "three";
 import { motion } from "motion/react";
+import { animate } from "@/utils/clientUtils";
 
 function Frost() {
   return (
-    <motion.div
-      transition={{
-        ease: "easeIn",
-        duration: 1,
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="fixed top-0 left-0 right-0 bottom-0"
-    >
+    <motion.div {...animate(8)} className="fixed top-0 left-0 right-0 bottom-0">
       <Canvas>
         <ambientLight />
         <Effect />

@@ -6,24 +6,15 @@ import { routes } from "../routes";
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./ui/sheet";
-import { useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
 import Link from "next/link";
 
 function NavBar() {
   const pathname = usePathname();
-  const [isTop, setIsTop] = useState(true);
-  const scroll = useScroll();
-
-  useMotionValueEvent(scroll.scrollYProgress, "change", (prev) => {
-    setIsTop(prev > 0 ? false : true);
-  });
 
   return (
     <nav
       className={cn(
-        "bg-none md:bg-black top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
-        !isTop && "bg-slate-900",
+        "bg-black top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
       )}
     >
       <ul className={cn("px-4 py-2 flex gap-6 items-center")}>

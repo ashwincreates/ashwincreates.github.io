@@ -17,7 +17,7 @@ function Experience() {
   return (
     <section
       id="experience"
-      className="min-h-[500px] px-6 md:ml-48 md:pr-24 space-y-20"
+      className="min-h-[500px] px-6 space-y-20 max-w-6xl m-auto"
     >
       <h3 className="text-slate-300 font-display text-3xl md:text-4xl">
         Experience

@@ -13,7 +13,7 @@ function Skills() {
   return (
     <section
       id="skills"
-      className="relative min-h-[100vh] px-6 md:ml-48 pb-24 md:pr-24 space-y-20"
+      className="relative min-h-[100vh] px-6 pb-24 max-w-6xl m-auto space-y-20"
     >
       <h3 className="text-slate-300 font-display text-3xl md:text-4xl py-18 md:py-24">
         Stuff I work with

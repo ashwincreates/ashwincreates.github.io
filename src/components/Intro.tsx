@@ -9,7 +9,7 @@ import { animate } from "@/utils/clientUtils";
 
 function Intro() {
   return (
-    <section className="relative h-[100vh] px-6 md:px-48 md:pr-24">
+    <section className="relative pb-36">
       <div className="space-y-8 max-w-5xl m-auto pt-48 text-center">
         <h1 className="text-2xl md:text-5xl text-slate-100 font-display">
           <motion.span {...animate(0)}>Crafting </motion.span>

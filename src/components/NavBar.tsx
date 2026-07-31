@@ -4,31 +4,76 @@ import Logo from "./Logo";
 import NavLink from "next/link";
 import { routes } from "../routes";
 import { cn } from "@/lib/utils";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, TerminalIcon } from "lucide-react";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./ui/sheet";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 function NavBar() {
   const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("#work");
+
+  // Scroll Spy Observer to track currently active page section
+  useEffect(() => {
+    const sections = ["work", "skills", "experience"];
+    const observers = sections.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${id}`);
+          }
+        },
+        {
+          rootMargin: "-20% 0px -50% 0px", // triggers when section is in main focus
+          threshold: 0,
+        }
+      );
+      
+      observer.observe(el);
+      return { observer, el };
+    });
+
+    const handleHashChange = () => {
+      if (window.location.hash) {
+        setActiveSection(window.location.hash);
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      observers.forEach((obs) => {
+        if (obs) {
+          obs.observer.unobserve(obs.el);
+        }
+      });
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
 
   return (
     <nav
       className={cn(
-        "bg-black top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-md z-10 overflow-hidden md:backdrop-blur-sm shadow-sm",
+        "border border-border bg-card/70 top-4 left-4 right-4 md:right-[unset] md:left-[50%] md:translate-x-[-50%] fixed rounded-none z-50 overflow-hidden backdrop-blur-md shadow-2xl w-auto",
       )}
     >
-      <ul className={cn("px-4 py-2 flex gap-6 items-center")}>
-        <li className="size-5">
-          <Link href="/">
+      <ul className={cn("px-4 py-2.5 flex gap-8 items-center list-none")}>
+        <li className="size-6 flex items-center justify-center shrink-0">
+          <Link href="/" className="hover:scale-105 transition-transform duration-200">
             <Logo />
           </Link>
         </li>
+        
         {routes.map((item) => {
+          const isActive = activeSection === item.route;
           return (
             <NavLink
               key={item.title}
               className="hidden md:block"
               style={{ textDecoration: "none" }}
+              onClick={() => setActiveSection(item.route)}
               target={
                 item.type === "link"
                   ? item.route.startsWith("http")
@@ -38,45 +83,53 @@ function NavBar() {
               }
               href={item.route}
             >
-              <h4
+              <span
                 className={cn(
-                  "text-slate-300 hover:text-slate-50 font-display text-xs",
-                  pathname.includes(item.route) ? "text-slate-50" : "",
+                  "font-pixel text-lg tracking-widest transition-all duration-200 px-3 py-1 flex items-center gap-1.5 cursor-pointer select-none",
+                  isActive 
+                    ? "text-primary border border-primary/20 bg-primary/5" 
+                    : "text-muted-foreground hover:text-foreground border border-transparent hover:border-border/60 hover:bg-secondary/40"
                 )}
-                style={{
-                  lineHeight: 0,
-                }}
               >
-                {item.title}
-              </h4>
+                {isActive ? `[ ${item.title.toUpperCase()} ]` : item.title.toUpperCase()}
+              </span>
             </NavLink>
           );
         })}
+
         <Sheet>
-          <SheetTrigger className="md:hidden text-slate-300">
-            <MenuIcon />
+          <SheetTrigger className="md:hidden text-muted-foreground hover:text-foreground cursor-pointer p-1">
+            <MenuIcon className="size-5" />
           </SheetTrigger>
           <SheetContent
             side="top"
-            className="border-slate-700 flex flex-col gap-4 p-4"
+            className="border-b border-border bg-card/95 backdrop-blur-lg flex flex-col gap-5 p-6 rounded-none"
           >
+            <div className="flex items-center gap-2 pb-3 border-b border-border">
+              <TerminalIcon className="size-4 text-primary" />
+              <span className="font-pixel text-xs tracking-wider text-muted-foreground uppercase">MENU_NAVIGATION.cfg</span>
+            </div>
+            
             <NavLink style={{ textDecoration: "none" }} href={"/"}>
-              <SheetClose>
-                <h4
+              <SheetClose className="w-full text-left">
+                <span
                   className={cn(
-                    "text-slate-400 hover:text-slate-50 font-display text-lg",
-                    pathname == "/" ? "text-slate-50" : "",
+                    "font-pixel text-xl tracking-wider block py-2 text-muted-foreground hover:text-foreground",
+                    pathname === "/" ? "text-primary" : ""
                   )}
                 >
-                  Home
-                </h4>
+                  {pathname === "/" ? "> HOME" : "  HOME"}
+                </span>
               </SheetClose>
             </NavLink>
+            
             {routes.map((item) => {
+              const isActive = activeSection === item.route;
               return (
                 <NavLink
                   key={item.title}
                   style={{ textDecoration: "none" }}
+                  onClick={() => setActiveSection(item.route)}
                   target={
                     item.type === "link"
                       ? item.route.startsWith("http")
@@ -86,15 +139,15 @@ function NavBar() {
                   }
                   href={item.route}
                 >
-                  <SheetClose>
-                    <h4
+                  <SheetClose className="w-full text-left">
+                    <span
                       className={cn(
-                        "text-slate-400 hover:text-slate-50 font-display text-lg",
-                        pathname.includes(item.route) ? "text-slate-50" : "",
+                        "font-pixel text-xl tracking-wider block py-2",
+                        isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                       )}
                     >
-                      {item.title}
-                    </h4>
+                      {isActive ? `> ${item.title.toUpperCase()}` : `  ${item.title.toUpperCase()}`}
+                    </span>
                   </SheetClose>
                 </NavLink>
               );

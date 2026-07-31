@@ -12,7 +12,7 @@ function Featured() {
       className="px-6 space-y-10 max-w-6xl m-auto"
     >
       <Slideshow
-        slides={[{ image: "/diamond3.png" }, { image: "/diamond1.png" }]}
+        images={["/diamond3.png", "/diamond1.png"]}
       />
       <div className="max-w-4xl m-auto space-x-10 flex items-start justify-between">
         <div>

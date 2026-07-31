@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import NavBar from "@/components/NavBar";
 import "./index.css";
 import Footer from "@/components/Footer";
-import Frost from "@/components/Frost";
 
 export const metadata: Metadata = {
   title: "Ashwin Sharma",
@@ -17,7 +16,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body>
-        <Frost />
         <NavBar />
         {children}
         <Footer />

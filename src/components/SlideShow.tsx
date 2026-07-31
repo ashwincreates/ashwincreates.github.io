@@ -2,64 +2,92 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function Slideshow({ slides }: { slides: { image: string }[] }) {
+interface SlideshowProps {
+  images: string[];
+}
+
+export default function Slideshow({ images }: SlideshowProps) {
   const [index, setIndex] = useState(0);
 
-  const nextSlide = () => setIndex((i) => (i + 1) % slides.length);
-  const prevSlide = () =>
-    setIndex((i) => (i - 1 + slides.length) % slides.length);
+  if (!images || images.length === 0) {
+    return null;
+  }
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIndex((i) => (i + 1) % images.length);
+  };
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIndex((i) => (i - 1 + images.length) % images.length);
+  };
 
   return (
-    <Card className="relative w-full max-w-4xl mx-auto overflow-hidden bg-slate-900 border-slate-800 shadow-lg rounded-2xl aspect-video">
-      <CardContent className="p-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="relative"
-          >
-            <img
-              src={slides[index].image}
-              className="w-full aspect-video object-cover opacity-90"
-            />
-          </motion.div>
-        </AnimatePresence>
-      </CardContent>
-
-      {/* Navigation Arrows */}
-      <div className="absolute inset-0 flex items-center justify-between p-4">
-        <button
-          onClick={prevSlide}
-          className="p-2 rounded-full bg-slate-800/60 hover:bg-slate-700/80 transition"
+    <div className="relative w-full h-full min-h-[250px] lg:min-h-full overflow-hidden bg-black/50 aspect-video lg:aspect-auto">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="absolute inset-0"
         >
-          <ChevronLeft className="w-5 h-5 text-slate-200" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="p-2 rounded-full bg-slate-800/60 hover:bg-slate-700/80 transition"
-        >
-          <ChevronRight className="w-5 h-5 text-slate-200" />
-        </button>
-      </div>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-0 w-full flex justify-center gap-1">
-        {slides.map((_, i) => (
-          <div
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`w-10 h-0.5 cursor-pointer transition ${
-              i === index ? "bg-slate-300" : "bg-slate-600"
-            }`}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={images[index]}
+            className="w-full h-full object-cover transition-transform duration-700 filter saturate-[0.8] hover:scale-102"
+            alt={`Slide ${index + 1}`}
           />
-        ))}
-      </div>
-    </Card>
+        </motion.div>
+      </AnimatePresence>
+
+
+
+      {/* Retro Navigation Arrows */}
+      {images.length > 1 && (
+        <div className="absolute inset-x-0 bottom-4 flex justify-between px-4 z-20 pointer-events-auto">
+          <button
+            onClick={prevSlide}
+            className="font-pixel text-base text-foreground hover:text-primary transition-all duration-200 border border-border bg-black/80 px-2 py-1 cursor-pointer flex items-center gap-1 select-none"
+          >
+            <ChevronLeft className="size-4 text-primary" />
+            <span>[ PREV ]</span>
+          </button>
+          
+          <button
+            onClick={nextSlide}
+            className="font-pixel text-base text-foreground hover:text-primary transition-all duration-200 border border-border bg-black/80 px-2 py-1 cursor-pointer flex items-center gap-1 select-none"
+          >
+            <span>[ NEXT ]</span>
+            <ChevronRight className="size-4 text-primary" />
+          </button>
+        </div>
+      )}
+
+      {/* Custom Retro Dot Indicators */}
+      {images.length > 1 && (
+        <div className="absolute top-4 right-4 flex gap-1.5 z-20">
+          {images.map((_, i) => (
+            <div
+              key={i}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIndex(i);
+              }}
+              className={`size-2 border border-border/80 cursor-pointer transition-all duration-200 ${
+                i === index ? "bg-primary border-primary" : "bg-black/40 hover:bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
